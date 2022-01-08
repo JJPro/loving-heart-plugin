@@ -103,6 +103,4 @@ mix.webpackConfig({
 		open: false, // https://browsersync.io/docs/options#option-open
 		ghostMode: false, // disable mirroring of user interactions across devices
 		notify: false,
-	})
-	.copyDirectory('assets/images', 'dist/images')
-	.copyDirectory('assets/fonts', 'dist/fonts');
+	});
