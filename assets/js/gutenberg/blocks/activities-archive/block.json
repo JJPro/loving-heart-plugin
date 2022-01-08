@@ -13,5 +13,6 @@
 	},
 	"keywords": ["activity", "activities"],
 	"editorScript": "file:../../../../../dist/js/gutenberg/blocks/activities-archive.js",
-	"style": "file:../../../../../dist/js/gutenberg/blocks/style-activities-archive.css"
+	"style": "file:../../../../../dist/js/gutenberg/blocks/style-activities-archive.css",
+	"script": "file:../../../../../dist/js/gutenberg/blocks/view-activities-archive.js"
 }

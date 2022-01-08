@@ -38,9 +38,7 @@ export default () => {
 			<ul className="tags-list">
 				<li>
 					<button
-						className={`activity-tag ${
-							activeTag ? '' : 'active'
-						}`}
+						className={`activity-tag ${activeTag ? '' : 'active'}`}
 						onClick={() => setActiveTag(null)}
 					>
 						All
@@ -73,12 +71,8 @@ export default () => {
 						</div>
 						{/* Activity Metadata */}
 						<div className="activity-meta">
-							<h1 className="title">
-								{activity.title}
-							</h1>
-							<div className="intro">
-								{activity.description}
-							</div>
+							<h1 className="title">{activity.title}</h1>
+							<div className="intro">{activity.description}</div>
 							{/* tag list */}
 							<ul className="tags">
 								{activity.tags.map((tag) => (
@@ -96,26 +90,42 @@ export default () => {
 							<ul className="activity-meta-list">
 								{activity.location && (
 									<li>
-										<Icon icon={place} className='icon' />
-										{activity.location}
+										<Icon icon={place} className="icon" />
+										{activity.mapLink ? (
+											<a href={activity.mapLink}>
+												{activity.location}
+											</a>
+										) : (
+											activity.location
+										)}
 									</li>
 								)}
-								{activity['travelTime'] && (
+								{activity.travelTime && (
 									<li>
-										<Icon icon={car} className='icon' />
-										{activity['travelTime']}
+										<Icon icon={car} className="icon" />
+										{activity.mapLink ? (
+											<a href={activity.mapLink}>
+												{activity.travelTime}
+											</a>
+										) : (
+											activity.travelTime
+										)}
 									</li>
 								)}
 								{activity.phone && (
 									<li>
-										<Icon icon={phone} className='icon' />
-										{activity.phone}
+										<Icon icon={phone} className="icon" />
+										<a href={`tel:${activity.phone}`}>
+											{activity.phone}
+										</a>
 									</li>
 								)}
 								{activity.website && (
 									<li>
-										<Icon icon={link} className='icon' />
-										{activity.website}
+										<Icon icon={link} className="icon" />
+										<a href={activity.website}>
+											{activity.website}
+										</a>
 									</li>
 								)}
 							</ul>

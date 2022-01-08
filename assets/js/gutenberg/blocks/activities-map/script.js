@@ -32,6 +32,7 @@ domReady(async () => {
 							</div>`);
 				$(label)
 					.css('cursor', 'pointer')
+					.css('pointer-events', 'bounding-box')
 					.on('mouseenter', function (e) {
 						$(interactiveMap).append(
 							$element.css({

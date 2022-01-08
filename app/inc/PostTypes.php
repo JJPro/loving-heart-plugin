@@ -68,6 +68,14 @@ class PostTypes
 				return current_user_can('edit_posts');
 			}
 		));
+		register_post_meta('activity', 'mapLink', array(
+			'show_in_rest' => true,
+			'single' => true,
+			'type' => 'string',
+			'auth_callback' => function () {
+				return current_user_can('edit_posts');
+			}
+		));
 		register_post_meta('activity', 'travelTime', array(
 			'show_in_rest' => true,
 			'single' => true,

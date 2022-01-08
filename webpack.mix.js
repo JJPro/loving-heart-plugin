@@ -35,6 +35,16 @@ const blockScriptEntries = glob
 		acc["dist/js/gutenberg/blocks/script-" + entry] = path;
 		return acc;
 	}, {});
+const blockViewScriptEntries = glob
+	.sync("./assets/js/gutenberg/blocks/*/view.js")
+	.reduce((acc, path) => {
+		const entry = path.replace(
+			/(\.\/assets\/js\/gutenberg\/blocks\/)|(\/view.js)/g,
+			""
+		);
+		acc["dist/js/gutenberg/blocks/view-" + entry] = path;
+		return acc;
+	}, {});
 
 // compile block styles (editor script already contains the styles, but you still need to compile it into a separate file to be loaded on the frontend)
 glob
@@ -72,6 +82,7 @@ mix.webpackConfig({
 	entry: {
 		...blockEditorScriptEntries,
 		...blockScriptEntries,
+		...blockViewScriptEntries,
 	},
 })
 	.js('assets/js/editor.js', 'dist/js') // editor plugins

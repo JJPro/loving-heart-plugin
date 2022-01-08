@@ -40,6 +40,7 @@ class REST
 								"thumbnail" => wp_get_attachment_url($activity->_thumbnail_id),
 								"description" => $activity->description,
 								"location" => $activity->location,
+								"mapLink" => $activity->mapLink,
 								"travelTime" => $activity->travelTime,
 								"phone" => $activity->phone,
 								"website" => $activity->website,

@@ -38,6 +38,11 @@ export default function Edit() {
 				onChange={(location) => setMeta({ location })}
 			/>
 			<TextControl
+				label="Google Maps Link"
+				value={meta.mapLink}
+				onChange={(mapLink) => setMeta({ mapLink })}
+			/>
+			<TextControl
 				label="Travel Time"
 				value={meta['travelTime']}
 				onChange={(travelTime) =>
