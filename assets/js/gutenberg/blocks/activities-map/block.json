@@ -1,0 +1,18 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "lhr/activities-map",
+	"version": "0.1.0",
+	"title": "Activities Map",
+	"category": "media",
+	"icon": "palmtree",
+	"description": "Loving Heart Retreats Activities Map",
+	"supports": {
+		"align": true,
+		"alignWide": true
+	},
+	"keywords": ["activity", "activities"],
+	"editorScript": "file:../../../../../dist/js/gutenberg/blocks/activities-map.js",
+	"script": "file:../../../../../dist/js/gutenberg/blocks/script-activities-map.js",
+	"style": "file:../../../../../dist/js/gutenberg/blocks/style-activities-map.css"
+}

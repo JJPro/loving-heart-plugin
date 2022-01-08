@@ -1,0 +1,12 @@
+{
+	"$schema": "https://json.schemastore.org/block.json",
+	"apiVersion": 2,
+	"name": "lhr/activity",
+	"version": "0.1.0",
+	"title": "Activity Info",
+	"category": "media",
+	"icon": "palmtree",
+	"description": "Loving Heart Retreats Activity Info",
+	"keywords": ["activity", "activities", "activity", "activities"],
+	"editorScript": "file:../../../../../dist/js/gutenberg/blocks/activity.js"
+}

@@ -1,0 +1,21 @@
+.wp-block-lhr-activities-map {
+
+	.activity-tag {
+		@apply px-3 py-1 rounded-full text-darker-2 bg-white border border-solid border-primary/50 whitespace-nowrap;
+		&.active {
+			@apply text-white bg-primary;
+		}
+	}
+
+	.popup-dialog {
+		@apply max-w-[90%] w-fit bg-white drop-shadow-lg py-3 px-6 absolute inline-block;
+
+		h1 {
+			@apply font-bold text-sm text-secondary mt-2 sm:mt-0;
+		}
+
+		ul {
+			@apply flex gap-x-2 font-bold text-xxs mb-4 mt-6;
+		}
+	}
+}

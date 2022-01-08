@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&family=Open+Sans:wght@400;600;700&family=Sansita:wght@700&display=swap');
+
+.activities-archive { @apply font-open-sans;
+	ul,ol {@apply pl-0 #{!important};}
+	li {@apply list-none;}
+	.activity-tag {
+		@apply px-3 py-1 rounded-full text-darker-2 bg-white border border-solid border-primary/50 whitespace-nowrap;
+		&.active {
+			@apply text-white bg-primary;
+		}
+	}
+
+	.activity-more__btn {
+		@apply bg-primary text-white font-bold text-xxs py-1 px-3 sm:w-fit leading-6 border-none;
+	}
+	.activity-more__btn::before {
+		@apply inline-block mr-3 text-sm align-baseline;
+		content: "+";
+	}
+	.activity-more__btn.open::before {
+		content: "-";
+	}
+
+	.activity-more__content {@apply hidden bg-white p-4 md:p-8 drop-shadow-lg w-full;}
+
+	.tags-list {@apply flex gap-x-2 font-bold text-xxs mb-8;}
+
+	article {@apply mt-6;
+
+		.activity-detail {@apply sm:flex sm:flex-row-reverse sm:justify-between sm:gap-x-4;
+
+			.image-container {@apply sm:flex-none sm:w-7/12 sm:max-w-lg;
+				img {@apply w-full aspect-hero sm:aspect-auto object-cover;}
+			}
+
+			.activity-meta {@apply flex flex-col;
+				.title {@apply flex-none font-bold text-md text-secondary mt-2 sm:mt-0;}
+				.intro {@apply flex-auto text-xs text-darker mt-4;}
+				.tags {@apply flex-none flex gap-x-2 font-bold text-xxs mb-4 mt-6;}
+				.activity-meta-list {@apply flex-none text-xs font-normal text-darker flex flex-col gap-y-2 my-2;
+					li {@apply flex items-center;
+						.icon {@apply fill-primary/50 inline-block mr-3;}
+					}
+				}
+			}
+		}
+	}
+
+}

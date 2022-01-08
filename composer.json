@@ -1,0 +1,25 @@
+{
+    "name": "jjpro/loving-heart",
+		"description": "Loving Heart Retreats website plugin",
+    "type": "theme",
+	"jjpro-deps-comments": {
+		"illuminate/support": "offers prettier `dump` and `dd`(dump and die)"
+	},
+    "require": {
+        "timber/timber": "^1.19",
+        "illuminate/support": "^8.75",
+        "friendsoftwig/twigcs": "^5.1",
+        "djboris88/timber-debugger": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lu Ji",
+            "email": "lu.ji1@me.com"
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+/vendor/
+/node_modules/
+/.idea/
+*.code-workspace
+.DS_Store
+dist
+build
+.vscode
+mix-manifest.json
+resources/views/cache/
+TODO.md
