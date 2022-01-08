@@ -12,8 +12,6 @@
  * @package         loving-heart
  */
 
-use Timber\Timber;
-
 // prevent direct access
 defined('ABSPATH') || exit;
 
@@ -35,15 +33,13 @@ $lhr_error = function ($message, $subtitle = '', $title = '') {
 /**
  * Ensure dependencies are loaded
  */
-if (!class_exists('Timber\\Timber')) {
-	if (!file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
-		$lhr_error(
-			'You must run <code>composer install</code> from the theme directory.',
-			'Autoloader not found.'
-		);
-	}
-	require_once $composer;
+if (!file_exists($composer = __DIR__ . '/vendor/autoload.php')) {
+	$lhr_error(
+		'You must run <code>composer install</code> from the theme directory.',
+		'Autoloader not found.'
+	);
 }
+require_once $composer;
 
 /**
  * Setup actions and filters
@@ -53,9 +49,3 @@ array_map(function ($file) use ($lhr_error) {
 	$file = "app/{$file}.php";
 	require_once($file);
 }, ['constants', 'helpers', 'bootstrap']);
-
-/**
- * Initialize Timber
- */
-Timber::$dirname = 'views';
-// Timber::$twig_cache = true;

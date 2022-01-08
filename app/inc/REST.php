@@ -2,8 +2,6 @@
 
 namespace app\inc;
 
-use Timber\PostQuery;
-
 use function app\get_all_activity_tags;
 use function app\get_post_activity_tags;
 
