@@ -13,15 +13,15 @@ class PostTypes
         register_post_type('activity', [
             'label' => 'Activity',
             'description' => 'Activities',
-            'public' => true,
+						'publicly_queryable' => false,
             'hierarchical' => false,
             'show_ui' => true, // show in admin
             'show_in_admin_bar' => true,
-            '$show_in_nav_menus' => true,
+            'show_in_nav_menus' => false,
             'show_in_rest' => true,
             'menu_icon' => 'dashicons-location-alt',
             'supports'  => ['title', 'editor','thumbnail', 'custom-fields'],
-            'has_archive' => 'activities',
+            'has_archive' => false,
             'template'  => [
                 ['lhr/activity'],
                 ['core/paragraph', ['placeholder' => 'More about this site...']],
