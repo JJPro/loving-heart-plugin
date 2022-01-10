@@ -93,9 +93,9 @@ mix.webpackConfig({
 		manifest: false,
 	})
 	.sourceMaps(false, 'eval-source-map') // https://laravel.com/docs/8.x/mix#style-of-source-mapping
+	.copyDirectory('assets/images', 'dist/images')
 	.browserSync({
 		files: [
-			'app/**/*.php',
 			'views/**/*.twig',
 			'dist/js/**/*.{js,jsx,css}',
 			'dist/css/**/*.css',

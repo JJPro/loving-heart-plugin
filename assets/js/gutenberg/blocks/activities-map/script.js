@@ -36,9 +36,8 @@ domReady(async () => {
 					.on('mouseenter', function (e) {
 						$(interactiveMap).append(
 							$element.css({
-								position: 'absolute',
-								left: e.pageX,
-								top: e.pageY,
+								left: e.offsetX,
+								top: e.offsetY,
 								transform: 'translate(-50%, 1rem)',
 							})
 						);

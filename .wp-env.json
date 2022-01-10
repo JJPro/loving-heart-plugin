@@ -13,7 +13,8 @@
     "SCRIPT_DEBUG": true,
     "WP_DEBUG_DISPLAY": true,
     "WP_DEBUG_LOG": true,
-    "GUTENBERG_DEVELOPMENT_MODE": true
+    "GUTENBERG_DEVELOPMENT_MODE": true,
+		"QM_ENABLE_CAPS_PANEL": true
   },
 	"port": 5555,
 	"env": {
