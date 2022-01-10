@@ -7,7 +7,7 @@
 		}
 
 		ul {
-			@apply flex gap-x-2 mb-4 mt-6 pl-0 #{!important};
+			@apply flex gap-x-2 mb-4 mt-6 pl-0 flex-wrap gap-y-1 max-w-sm #{!important};
 			li {
 				@apply list-none;
 				.activity-tag {
