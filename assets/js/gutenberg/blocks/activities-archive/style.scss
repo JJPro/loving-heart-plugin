@@ -1,29 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif&family=Open+Sans:wght@400;600;700&family=Sansita:wght@700&display=swap');
 
 .activities-archive {@apply pb-4;
-	ul,ol {@apply pl-0 #{!important};}
+	/*------ reset theme default ------*/
+	ul,ol {@apply pl-0;}
 	li {@apply list-none;}
+	button {@apply border-none;}
+	button:focus {@apply outline-none;}
+
+	/*------ my styles ------*/
+	.tags-list {@apply flex gap-x-2 font-bold text-xxs mb-8 flex-wrap gap-y-2;}
 	.activity-tag {
-		@apply cursor-pointer px-3 py-1 rounded-full font-bold text-xxs text-darker-2 bg-white border border-solid border-primary/50 whitespace-nowrap #{!important};
+		@apply cursor-pointer px-3 py-1 rounded-full font-bold text-xxs text-darker-2 bg-white border border-solid border-primary/50 whitespace-nowrap;
 		&.active {
-			@apply text-white bg-primary #{!important};
+			@apply text-white bg-primary;
 		}
 	}
-	.activity-tag:focus {@apply outline-none;}
-
-	.activity-more__btn {
-		@apply cursor-pointer bg-primary text-white font-bold text-xxs py-1 px-3 sm:w-fit leading-6 border-none #{!important};
-	}
-	.activity-more__btn::before {
-		@apply inline-block mr-3 text-sm align-baseline;
-		content: "+";
-	}
-	.activity-more__btn.open::before {
-		content: "-";
-	}
-	.activity-more__btn:focus {@apply outline-none;}
-
-	.tags-list {@apply flex gap-x-2 font-bold text-xxs mb-8;}
 
 	article {@apply mt-6;
 
@@ -44,6 +35,18 @@
 				}
 			}
 		}
+
+		.activity-more__btn {
+			@apply cursor-pointer bg-primary text-white font-bold text-xxs py-1 px-3 sm:w-fit leading-6;
+		}
+		.activity-more__btn::before {
+			@apply inline-block mr-3 text-sm align-baseline;
+			content: "+";
+		}
+		.activity-more__btn.open::before {
+			content: "-";
+		}
+		.activity-more__btn:focus {@apply outline-none;}
 
 		.activity-more__content {@apply hidden bg-white p-4 md:p-8 shadow-sm w-full;}
 	}

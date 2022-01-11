@@ -97,8 +97,7 @@ mix.webpackConfig({
 	.browserSync({
 		files: [
 			'views/**/*.twig',
-			'dist/js/**/*.{js,jsx,css}',
-			'dist/css/**/*.css',
+			'assets/js/**/*.{js,jsx,scss}',
 		],
 		open: false, // https://browsersync.io/docs/options#option-open
 		ghostMode: false, // disable mirroring of user interactions across devices
