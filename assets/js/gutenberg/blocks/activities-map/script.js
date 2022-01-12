@@ -1,6 +1,9 @@
 import domReady from '@wordpress/dom-ready';
+import { debounce } from 'lodash';
 import $ from 'jquery';
 import { fetchActivities } from '../../../api';
+import { external } from './icons';
+import { prefixUrlWithProtocol } from '../../utils';
 
 domReady(async () => {
 	/**
@@ -12,7 +15,7 @@ domReady(async () => {
 		const activities = await fetchActivities();
 		interactiveMaps.forEach((interactiveMap) => {
 			activities.forEach((item) => {
-				const { title, slug, tags } = item;
+				const { title, slug, tags, website } = item;
 				if (!slug) return;
 				const label = interactiveMap.querySelector(`#${slug}`);
 				const tagsHtml = tags.reduce(
@@ -21,20 +24,30 @@ domReady(async () => {
 						`<li><button class="activity-tag">${tag.name}</button></li>`,
 					''
 				);
+				const linkHtml = website
+					? `<div><a class="link" href="${prefixUrlWithProtocol(website)}">${external} ${website}</a></div>`
+					: '';
 				const $element = $(
 					`<div class="popup-dialog">
 						<h1>
 							${title}
 						</h1>
+						${linkHtml}
 						<ul>
 							${tagsHtml}
 						</ul>
 					</div>`
 				);
+				const debouncedRemove = debounce(() => $element.remove(), 200);
+
 				$(label)
 					.css('cursor', 'pointer')
 					.css('pointer-events', 'bounding-box')
 					.on('mouseenter', function (e) {
+						if ($element.width() > 0) {
+							debouncedRemove.cancel();
+							return;
+						}
 						$(interactiveMap).append(
 							$element.css({
 								left: e.offsetX,
@@ -63,7 +76,14 @@ domReady(async () => {
 						}
 					})
 					.on('mouseleave', function () {
-						$element.remove();
+						debouncedRemove();
+						$element
+							.on('mouseenter', function () {
+								debouncedRemove.cancel();
+							})
+							.on('mouseleave', function () {
+								debouncedRemove();
+					});
 					});
 			});
 		});

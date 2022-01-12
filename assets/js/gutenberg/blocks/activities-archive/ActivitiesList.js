@@ -3,6 +3,7 @@ import $ from 'jquery';
 import { Icon, link } from '@wordpress/icons';
 import { fetchActivityTags, fetchActivities } from '../../../api';
 import {car, phone, place} from './icons';
+import { prefixUrlWithProtocol } from '../../utils';
 
 export default () => {
 	const [activeTag, setActiveTag] = useState(null); // ID of active tag
@@ -123,7 +124,7 @@ export default () => {
 								{activity.website && (
 									<li>
 										<Icon icon={link} className="icon" />
-										<a href={activity.website}>
+										<a href={prefixUrlWithProtocol(activity.website)}>
 											{activity.website}
 										</a>
 									</li>

@@ -6,6 +6,10 @@
 			@apply font-bold text-sm text-secondary mt-2 sm:mt-0;
 		}
 
+		.link { @apply flex items-center;
+			svg {@apply fill-primary/50 w-5 mr-2;}
+		}
+
 		ul {
 			@apply flex gap-x-2 mb-4 mt-6 pl-0 flex-wrap gap-y-1 max-w-sm #{!important};
 			li {

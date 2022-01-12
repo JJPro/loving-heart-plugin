@@ -42,7 +42,8 @@
 		"@wordpress/icons": "^6.1.1",
 		"@wordpress/plugins": "^4.0.7",
 		"axios": "^0.24.0",
-		"jquery": "^3.6.0"
+		"jquery": "^3.6.0",
+		"lodash": "^4.17.21"
 	},
 	"browserslist": [
 		"extends @wordpress/browserslist-config"
