@@ -1,12 +1,12 @@
 import { useState, useEffect } from '@wordpress/element';
 import $ from 'jquery';
 import { Icon, link } from '@wordpress/icons';
+import { Link, useSearchParams } from 'react-router-dom';
 import { fetchActivityTags, fetchActivities } from '../../../api';
-import {car, phone, place} from './icons';
+import { car, phone, place } from './icons';
 import { prefixUrlWithProtocol } from '../../utils';
 
 export default () => {
-	const [activeTag, setActiveTag] = useState(null); // ID of active tag
 	const [activities, setActivities] = useState([]);
 	const [tags, setTags] = useState([]);
 	useEffect(async () => {
@@ -14,13 +14,14 @@ export default () => {
 		const tagsData = await fetchActivityTags();
 		setActivities(activitiesData);
 		setTags(tagsData);
-	}, [])
-
+	}, []);
+	const [searchParams] = useSearchParams();
+	const currentTag = parseInt(searchParams.get('tag'));
 
 	let activeActivities = activities;
-	if (activeTag) {
+	if (currentTag) {
 		activeActivities = activities.filter((activity) => {
-			return activity.tags.some((tag) => activeTag === tag.ID);
+			return activity.tags.some((tag) => currentTag === tag.ID);
 		});
 	}
 
@@ -33,28 +34,42 @@ export default () => {
 		).slideToggle();
 	};
 
+	const TagLink = ({
+		tagID = null,
+		needsActiveHighlight = true,
+		...props
+	}) => {
+		const [params] = useSearchParams();
+		if (tagID) {
+			params.set('tag', tagID);
+		} else {
+			params.delete('tag');
+		}
+		const classes = ['activity-tag'];
+		if (needsActiveHighlight) {
+			if (tagID === currentTag || (!tagID && !currentTag)) {
+				classes.push('current');
+			}
+		}
+		return (
+			<Link
+				className={classes.join(' ')}
+				to={`?${params.toString()}`}
+				{...props}
+			/>
+		);
+	};
+
 	return (
 		<>
 			{/* Tags list */}
 			<ul className="tags-list">
 				<li>
-					<button
-						className={`activity-tag ${activeTag ? '' : 'active'}`}
-						onClick={() => setActiveTag(null)}
-					>
-						All
-					</button>
+					<TagLink>All</TagLink>
 				</li>
 				{tags.map((tag) => (
 					<li key={tag.ID}>
-						<button
-							className={`activity-tag ${
-								tag.ID === activeTag ? 'active' : ''
-							}`}
-							onClick={() => setActiveTag(tag.ID)}
-						>
-							{tag.name}
-						</button>
+						<TagLink tagID={tag.ID}>{tag.name}</TagLink>
 					</li>
 				))}
 			</ul>
@@ -78,12 +93,12 @@ export default () => {
 							<ul className="tags">
 								{activity.tags.map((tag) => (
 									<li key={tag.ID}>
-										<button
-											className="activity-tag"
-											onClick={() => setActiveTag(tag.ID)}
+										<TagLink
+											tagID={tag.ID}
+											needsActiveHighlight={false}
 										>
 											{tag.name}
-										</button>
+										</TagLink>
 									</li>
 								))}
 							</ul>
@@ -124,7 +139,11 @@ export default () => {
 								{activity.website && (
 									<li>
 										<Icon icon={link} className="icon" />
-										<a href={prefixUrlWithProtocol(activity.website)}>
+										<a
+											href={prefixUrlWithProtocol(
+												activity.website
+											)}
+										>
 											{activity.website}
 										</a>
 									</li>

@@ -4,8 +4,5 @@ export default function save() {
 	const blockProps = useBlockProps.save({
 		className: 'activities-archive',
 	});
-	return (
-		<div {...blockProps} >
-		</div>
-	);
+	return <div {...blockProps}></div>;
 }
