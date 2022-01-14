@@ -25,7 +25,9 @@ domReady(async () => {
 					''
 				);
 				const linkHtml = website
-					? `<div><a class="link" href="${prefixUrlWithProtocol(website)}">${external} ${website}</a></div>`
+					? `<div><a class="link" href="${prefixUrlWithProtocol(
+							website
+					  )}">${external} ${website}</a></div>`
 					: '';
 				const $element = $(
 					`<div class="popup-dialog">
@@ -61,18 +63,25 @@ domReady(async () => {
 						let translateY = '1rem';
 						if (rect.left < 5) {
 							outOfBounds = true;
-							translateX = `calc(${translateX} + ${5 - rect.left}px)`;
+							translateX = `calc(${translateX} + ${
+								5 - rect.left
+							}px)`;
 						}
 						if ($(window).width() - rect.right < 5) {
 							outOfBounds = true;
-							translateX = `calc(${translateX} + ${$(window).width() - 5 - rect.right}px)`;
+							translateX = `calc(${translateX} + ${
+								$(window).width() - 5 - rect.right
+							}px)`;
 						}
 						if (rect.bottom > $(window).height()) {
 							outOfBounds = true;
 							translateY = `calc(${translateY} - ${rect.height}px - 1.75rem)`;
 						}
 						if (outOfBounds) {
-							$element.css('transform', `translate(${translateX}, ${translateY})`);
+							$element.css(
+								'transform',
+								`translate(${translateX}, ${translateY})`
+							);
 						}
 					})
 					.on('mouseleave', function () {
@@ -83,7 +92,7 @@ domReady(async () => {
 							})
 							.on('mouseleave', function () {
 								debouncedRemove();
-					});
+							});
 					});
 			});
 		});

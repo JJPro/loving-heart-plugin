@@ -44,10 +44,8 @@ export default function Edit() {
 			/>
 			<TextControl
 				label="Travel Time"
-				value={meta['travelTime']}
-				onChange={(travelTime) =>
-					setMeta({ 'travelTime': travelTime })
-				}
+				value={meta.travelTime}
+				onChange={(travelTime) => setMeta({ travelTime })}
 				placeholder="e.g. 3.6miles | 10mins"
 			/>
 			<TextControl

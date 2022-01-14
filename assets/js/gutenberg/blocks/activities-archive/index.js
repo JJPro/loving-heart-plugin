@@ -11,5 +11,5 @@ import save from './save';
 
 registerBlockType(blockInfo.name, {
 	edit: Edit,
-	save
+	save,
 });

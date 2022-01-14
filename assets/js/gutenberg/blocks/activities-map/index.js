@@ -8,6 +8,6 @@ import Edit from './edit';
 import save from './save';
 
 registerBlockType(blockInfo.name, {
-  edit: Edit,
-	save
+	edit: Edit,
+	save,
 });

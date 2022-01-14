@@ -21,7 +21,7 @@ export const fetchActivities = async () => {
 			// eslint-disable-next-line
 			console.log(error);
 		});
-}
+};
 
 export const fetchActivityTags = async () => {
 	// const restRoute = document
@@ -39,4 +39,4 @@ export const fetchActivityTags = async () => {
 			// eslint-disable-next-line
 			console.log(error);
 		});
-}
+};
