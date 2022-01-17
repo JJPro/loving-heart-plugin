@@ -10,9 +10,12 @@
 	/*------ my styles ------*/
 	.tags-list {@apply flex gap-x-2 font-bold text-xxs mb-8 flex-wrap gap-y-2;}
 	.activity-tag {
-		@apply cursor-pointer inline-block px-3 py-1 rounded-full font-bold text-xxs text-darker-2 bg-white border border-solid border-primary/50 whitespace-nowrap #{!important};
+		@apply cursor-pointer inline-block px-3 py-1 rounded-full font-bold text-xxs bg-white border border-solid whitespace-nowrap #{!important};
+		border-color: var(--qode-main-color);
+		color: var(--qode-main-color);
 		&.current {
-			@apply text-white bg-primary #{!important};
+			@apply text-white #{!important};
+			background-color: var(--qode-main-color) #{!important};
 		}
 	}
 
@@ -37,7 +40,8 @@
 		}
 
 		.activity-more__btn {
-			@apply cursor-pointer bg-primary text-white font-bold text-xxs py-1 px-3 sm:w-fit leading-6;
+			@apply cursor-pointer text-white font-bold text-xxs py-1 px-3 sm:w-fit leading-6;
+			background-color: var(--qode-main-color);
 		}
 		.activity-more__btn::before {
 			@apply inline-block mr-3 text-sm align-baseline;

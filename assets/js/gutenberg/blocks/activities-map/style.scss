@@ -15,7 +15,9 @@
 			li {
 				@apply list-none;
 				.activity-tag {
-					@apply px-3 py-1 rounded-full font-bold text-xxs text-darker-2 bg-white border border-solid border-primary/50 whitespace-nowrap #{!important};
+					@apply px-3 py-1 rounded-full font-bold text-xxs bg-white border border-solid whitespace-nowrap #{!important};
+					border-color: var(--qode-main-color);
+					color: var(--qode-main-color);
 				}
 			}
 		}
