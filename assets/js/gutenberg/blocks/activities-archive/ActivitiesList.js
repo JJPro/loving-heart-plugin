@@ -2,13 +2,16 @@ import { useState, useEffect } from '@wordpress/element';
 import $ from 'jquery';
 import { Icon, link } from '@wordpress/icons';
 import { Link, useSearchParams } from 'react-router-dom';
+import { Pagination } from '@mui/material';
 import { fetchActivityTags, fetchActivities } from '../../../api';
 import { car, phone, place } from './icons';
 import { prefixUrlWithProtocol } from '../../utils';
 
+const perPage = 10;
 export default () => {
 	const [activities, setActivities] = useState([]);
 	const [tags, setTags] = useState([]);
+	const [page, setPage] = useState(1);
 	useEffect(async () => {
 		const activitiesData = await fetchActivities();
 		const tagsData = await fetchActivityTags();
@@ -18,12 +21,17 @@ export default () => {
 	const [searchParams] = useSearchParams();
 	const currentTag = parseInt(searchParams.get('tag'));
 
-	let activeActivities = activities;
+	let filteredActivities = activities;
 	if (currentTag) {
-		activeActivities = activities.filter((activity) => {
+		filteredActivities = activities.filter((activity) => {
 			return activity.tags.some((tag) => currentTag === tag.ID);
 		});
 	}
+
+	const paginatedActivities = filteredActivities.slice(
+		perPage * (page - 1),
+		perPage * page
+	);
 
 	const toggleMoreInfoPanel = (el) => {
 		el.target.classList.toggle('open');
@@ -75,7 +83,7 @@ export default () => {
 			</ul>
 
 			{/* Activity post articles */}
-			{activeActivities.map((activity) => (
+			{paginatedActivities.map((activity) => (
 				<article key={activity.ID}>
 					<div className="activity-detail">
 						{/* Activity Image */}
@@ -167,6 +175,12 @@ export default () => {
 					></div>
 				</article>
 			))}
+
+			<Pagination
+				className="pagination"
+				count={Math.ceil(filteredActivities.length / perPage)}
+				onChange={(_e, newPage) => setPage(newPage)}
+			/>
 		</>
 	);
 };
