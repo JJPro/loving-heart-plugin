@@ -8,22 +8,23 @@ namespace app;
  */
 function get_all_activity_tags()
 {
-    $tags = get_terms(
-        array(
-            'taxonomy' => 'activity-tag'
-        )
-    );
+	$tags = get_terms(
+		array(
+			'taxonomy' => 'activity-tag',
+			'hide_empty' => true,
+		)
+	);
 
-    $tags = array_map(
-        fn ($tag) => [
-            'name' => $tag->name,
-            'slug' => $tag->slug,
-            'link' => get_term_link($tag->term_id),
+	$tags = array_map(
+		fn ($tag) => [
+			'name' => ucwords($tag->name),
+			'slug' => $tag->slug,
+			'link' => get_term_link($tag->term_id),
 			'ID'   => $tag->term_id,
-        ],
-        $tags
-    );
-    return $tags;
+		],
+		$tags
+	);
+	return $tags;
 }
 
 
@@ -32,16 +33,16 @@ function get_all_activity_tags()
  */
 function get_post_activity_tags($postID)
 {
-    $tags = wp_get_post_terms($postID, 'activity-tag');
+	$tags = wp_get_post_terms($postID, 'activity-tag');
 
-    $tags = array_map(
-        fn ($tag) => [
-            'name' => $tag->name,
-            'slug' => $tag->slug,
+	$tags = array_map(
+		fn ($tag) => [
+			'name' => ucwords($tag->name),
+			'slug' => $tag->slug,
 			'link' => get_term_link($tag->term_id),
 			'ID'   => $tag->term_id,
-        ],
-        $tags
-    );
-    return $tags;
+		],
+		$tags
+	);
+	return $tags;
 }

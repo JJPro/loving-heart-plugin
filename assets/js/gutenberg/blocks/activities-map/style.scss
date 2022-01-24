@@ -1,9 +1,9 @@
 .wp-block-lhr-activities-map {@apply relative;
 	.popup-dialog {
-		@apply max-w-[90%] w-fit bg-white shadow-sm py-3 px-6 absolute inline-block;
+		@apply max-w-[90%] w-fit bg-white shadow-sm py-3 px-6 absolute inline-block z-10;
 
 		h1 {
-			@apply font-bold text-sm text-secondary mt-2 sm:mt-0;
+			@apply font-bold text-sm text-black mt-2 sm:mt-0;
 		}
 
 		.link { @apply flex items-center;

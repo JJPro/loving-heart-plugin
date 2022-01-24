@@ -28,7 +28,7 @@
 			}
 
 			.activity-meta {@apply flex flex-col;
-				.title {@apply flex-none font-bold text-md text-secondary mt-2 sm:mt-0;}
+				.title {@apply flex-none font-bold text-md text-black mt-2 sm:mt-0;}
 				.intro {@apply flex-auto text-xs text-darker mt-4;}
 				.tags {@apply flex-none flex gap-x-2 mb-4 mt-6 flex-wrap gap-y-1;}
 				.activity-meta-list {@apply flex-none text-xs font-normal text-darker flex flex-col gap-y-2 my-2;

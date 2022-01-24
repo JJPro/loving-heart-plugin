@@ -27,7 +27,7 @@ domReady(async () => {
 				const linkHtml = website
 					? `<div><a class="link" href="${prefixUrlWithProtocol(
 							website
-					  )}">${external} ${website}</a></div>`
+					  )}" target="_blank" rel="noreferrer">${external} ${website}</a></div>`
 					: '';
 				const $element = $(
 					`<div class="popup-dialog">

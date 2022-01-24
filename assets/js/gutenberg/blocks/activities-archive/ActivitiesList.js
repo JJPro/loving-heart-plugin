@@ -116,7 +116,11 @@ export default () => {
 									<li>
 										<Icon icon={place} className="icon" />
 										{activity.mapLink ? (
-											<a href={activity.mapLink}>
+											<a
+												href={activity.mapLink}
+												target="_blank"
+												rel="noreferrer"
+											>
 												{activity.location}
 											</a>
 										) : (
@@ -151,6 +155,8 @@ export default () => {
 											href={prefixUrlWithProtocol(
 												activity.website
 											)}
+											target="_blank"
+											rel="noreferrer"
 										>
 											{activity.website}
 										</a>
