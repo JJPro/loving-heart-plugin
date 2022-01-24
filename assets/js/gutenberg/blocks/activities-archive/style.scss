@@ -24,7 +24,7 @@
 		.activity-detail {@apply sm:flex sm:flex-row-reverse sm:justify-between sm:gap-x-4;
 
 			.image-container {@apply sm:flex-none sm:w-7/12 sm:max-w-lg;
-				img {@apply w-full aspect-hero sm:h-full sm:aspect-auto object-cover;}
+				img {@apply w-full aspect-hero sm:h-full sm:aspect-video object-cover;}
 			}
 
 			.activity-meta {@apply flex flex-col;
