@@ -1,0 +1,82 @@
+# Local WordPress environment for developing this plugin (alternative to wp-env).
+#
+#   docker compose up -d
+#   docker compose run --rm cli core install --url=http://localhost:8080 --title="Loving Heart" \
+#       --admin_user=admin --admin_password=password --admin_email=admin@example.com
+#   docker compose run --rm cli plugin install elementor --activate
+#   docker compose run --rm cli plugin activate loving-heart-plugin
+#
+# If `plugin install` fails with 'A valid URL was not provided': a local proxy in fake-IP mode
+# (Clash/Surge etc.) resolves hosts to 198.18.x.x, which WordPress rejects as a reserved range.
+# Download on the host and install from the zip instead:
+#   curl -L -o /tmp/elementor.zip https://downloads.wordpress.org/plugin/elementor.latest-stable.zip
+#   docker compose cp /tmp/elementor.zip wordpress:/var/www/html/elementor.zip
+#   docker compose run --rm cli plugin install /var/www/html/elementor.zip --activate
+#   docker compose exec wordpress rm /var/www/html/elementor.zip
+#
+# The plugin folder is bind-mounted, so `vendor/` (composer install) and `dist/` (npm run build)
+# must exist on the host before the plugin can load.
+#
+# Site:   http://localhost:8080   (admin / password)
+# WP-CLI: docker compose run --rm cli <command>
+# Stop:   docker compose down        (add -v to also wipe the database)
+
+services:
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_DATABASE: wordpress
+      MARIADB_USER: wp
+      MARIADB_PASSWORD: wp
+      MARIADB_ROOT_PASSWORD: root
+    volumes:
+      - db:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  wordpress:
+    image: wordpress:php8.2
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', true);
+        define('SCRIPT_DEBUG', true);
+    volumes:
+      - wp:/var/www/html
+      - .:/var/www/html/wp-content/plugins/loving-heart-plugin
+
+  cli:
+    image: wordpress:cli-php8.2
+    depends_on:
+      wordpress:
+        condition: service_started
+    user: "33:33"          # www-data, so files created by wp-cli are owned like Apache's
+    environment:
+      HOME: /tmp             # www-data has no home; wp-cli needs a writable cache dir
+      WP_CLI_CACHE_DIR: /tmp/wp-cli-cache
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp
+    volumes:
+      - wp:/var/www/html
+      - .:/var/www/html/wp-content/plugins/loving-heart-plugin
+    entrypoint: ["wp"]
+    command: ["--info"]
+
+volumes:
+  db:
+  wp:
