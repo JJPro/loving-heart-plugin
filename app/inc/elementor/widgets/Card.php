@@ -117,6 +117,28 @@ class Card extends Widget_Base
 
 	private function registerStyleControls()
 	{
+		/*------ card ------*/
+		$this->start_controls_section('card_style_section', [
+			'label' => 'Card',
+			'tab'   => Controls_Manager::TAB_STYLE,
+		]);
+
+		$this->add_responsive_control('card_width', [
+			'label'      => 'Width',
+			'type'       => Controls_Manager::SLIDER,
+			'size_units' => ['px', '%', 'rem', 'em'],
+			'range'      => [
+				'px'  => ['min' => 100, 'max' => 1000],
+				'%'   => ['min' => 10, 'max' => 100],
+				'rem' => ['min' => 5, 'max' => 60],
+				'em'  => ['min' => 5, 'max' => 60],
+			],
+			'default'    => ['unit' => 'rem', 'size' => 18],
+			'selectors'  => ['{{WRAPPER}} .lhr-card' => 'width: {{SIZE}}{{UNIT}};'],
+		]);
+
+		$this->end_controls_section();
+
 		/*------ title ------*/
 		$this->start_controls_section('title_style_section', [
 			'label' => 'Title',
