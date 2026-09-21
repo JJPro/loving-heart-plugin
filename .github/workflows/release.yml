@@ -1,0 +1,116 @@
+# Builds the plugin and publishes a GitHub Release with an installable zip.
+#
+# To cut a release:
+#   1. Bump `Version:` in loving-heart-plugin.php and add a `## x.y.z` section to CHANGELOG.md
+#   2. git tag vx.y.z && git push origin vx.y.z
+#
+# The zip contains a single `loving-heart-plugin/` folder, so it can be uploaded via
+# Plugins > Add New > Upload Plugin, and re-uploading a newer version upgrades in place.
+#
+# Run manually (workflow_dispatch) to get the zip as a workflow artifact without publishing a release.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PLUGIN_SLUG: loving-heart-plugin
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read plugin version
+        id: version
+        run: |
+          version=$(sed -nE 's/^ \* Version:[[:space:]]+([0-9A-Za-z.+-]+).*/\1/p' "$PLUGIN_SLUG.php" | head -1)
+          [ -n "$version" ] || { echo "::error::Could not read Version header from $PLUGIN_SLUG.php"; exit 1; }
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Plugin version: $version"
+
+      - name: Check tag matches plugin version
+        if: github.ref_type == 'tag'
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          if [ "$tag" != "${{ steps.version.outputs.version }}" ]; then
+            echo "::error::Tag v$tag does not match plugin header Version ${{ steps.version.outputs.version }}"
+            exit 1
+          fi
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer
+          coverage: none
+
+      - name: Install PHP dependencies
+        run: composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install JS dependencies
+        run: npm ci
+
+      - name: Build assets
+        run: npm run build
+
+      - name: Assemble plugin folder
+        run: |
+          set -e
+          stage="build/$PLUGIN_SLUG"
+          rm -rf build && mkdir -p "$stage"
+          # only what the plugin needs at runtime (assets/ holds block.json + render.php read by app/inc/gutenberg/Blocks.php)
+          cp "$PLUGIN_SLUG.php" CHANGELOG.md "$stage/"
+          cp -R app dist vendor assets "$stage/"
+          find "$stage" -name '.DS_Store' -delete
+          ( cd build && zip -qr "../$PLUGIN_SLUG-${{ steps.version.outputs.version }}.zip" "$PLUGIN_SLUG" )
+          ls -lh *.zip
+          unzip -l "$PLUGIN_SLUG-${{ steps.version.outputs.version }}.zip" | head -20
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PLUGIN_SLUG }}-${{ steps.version.outputs.version }}
+          path: ${{ env.PLUGIN_SLUG }}-${{ steps.version.outputs.version }}.zip
+          if-no-files-found: error
+
+      - name: Extract release notes from CHANGELOG.md
+        if: github.ref_type == 'tag'
+        run: |
+          awk -v v="${{ steps.version.outputs.version }}" '
+            /^## / { inside = ($2 == v) ; next }
+            inside { print }
+          ' CHANGELOG.md | sed -e '/./,$!d' > release-notes.md
+          if [ ! -s release-notes.md ]; then
+            echo "No CHANGELOG.md section for ${{ steps.version.outputs.version }}; using auto-generated notes"
+            echo "--generate-notes" > notes-flag
+          fi
+
+      - name: Create GitHub Release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f notes-flag ]; then
+            notes_args=(--generate-notes)
+          else
+            notes_args=(--notes-file release-notes.md)
+          fi
+          gh release create "$GITHUB_REF_NAME" \
+            "$PLUGIN_SLUG-${{ steps.version.outputs.version }}.zip" \
+            --title "${{ steps.version.outputs.version }}" \
+            "${notes_args[@]}"
