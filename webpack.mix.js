@@ -1,4 +1,5 @@
 const mix = require("laravel-mix");
+mix.disableNotifications();
 // eslint-disable-next-line no-unused-vars
 const tailwind = require("mix-tailwindcss");
 const glob = require("glob");
