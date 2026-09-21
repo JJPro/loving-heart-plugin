@@ -1,0 +1,56 @@
+/**
+ * Elementor "Card" widget — Figma "Loving Heart" › Style 2 (node 2904:90)
+ *
+ * NOTE: tailwind.config.js sets `important: true`, so anything in @apply compiles
+ * with !important and would override Elementor's Style-tab controls. Properties
+ * that have a control (colors, typography) are therefore written as plain CSS.
+ */
+.lhr-card {@apply block bg-white shadow-sm overflow-hidden text-center no-underline;
+	border-radius: 5px;
+
+	&__image {@apply aspect-square w-full;
+		img {@apply block w-full h-full object-cover;}
+	}
+
+	&__body {
+		padding: 8px 18px 10px;
+	}
+
+	&__title {
+		margin: 0;
+		padding: 0;
+		font-weight: 700;
+		font-size: 16px;
+		line-height: normal;
+		color: #257f76;
+	}
+
+	&__divider {
+		display: block;
+		width: 44px;
+		height: 2.5px;
+		margin: 8px auto;
+		border-radius: 9999px;
+		background-color: #c8ceb0;
+	}
+
+	&__description {
+		margin: 0;
+		padding: 0;
+		font-weight: 400;
+		font-size: 14px;
+		line-height: normal;
+		color: #3c3e20;
+	}
+}
+
+a.lhr-card {@apply cursor-pointer;
+	color: inherit;
+	transition: box-shadow .2s ease, transform .2s ease;
+
+	&:hover,
+	&:focus-visible {
+		transform: translateY(-2px);
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, .24);
+	}
+}

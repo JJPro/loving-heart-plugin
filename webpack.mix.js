@@ -61,6 +61,21 @@ glob
 		});
 	});
 
+// compile elementor widget styles (registered in app/inc/elementor/Elementor.php)
+glob
+	.sync("./assets/js/elementor/*/style.scss")
+	.forEach((path) => {
+		const entry = path.replace(
+			/(\.\/assets\/js\/elementor\/)|(\/style.scss)/g,
+			""
+		);
+		const output = 'dist/js/elementor/style-' + entry + '.css';
+		mix.sass(path, output).tailwind().options({
+			processCssUrls: false,
+			manifest: false,
+		});
+	});
+
 mix.webpackConfig({
 	plugins: [new DependencyExtractionWebpackPlugin()],
 	module: {

@@ -6,7 +6,8 @@
   "plugins": [
 		".",
     "https://github.com/WordPress/gutenberg/releases/download/v12.3.0/gutenberg.zip",
-    "https://downloads.wordpress.org/plugin/query-monitor.3.8.1.zip"
+    "https://downloads.wordpress.org/plugin/query-monitor.3.8.1.zip",
+    "https://downloads.wordpress.org/plugin/elementor.latest-stable.zip"
   ],
   "config": {
     "WP_DEBUG": true,
