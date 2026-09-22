@@ -1,8 +1,6 @@
 {
 	"core": null,
-	"themes": [
-		"../kamperen/kamperen/"
-	],
+	"themes": ["../kamperen/kamperen/"],
 	"plugins": [
 		".",
 		"https://downloads.wordpress.org/plugin/query-monitor.latest-stable.zip",
