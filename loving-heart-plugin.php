@@ -7,7 +7,7 @@
  * Author URI:      https://github.com/jjpro
  * Text Domain:     loving-heart
  * Domain Path:     /languages
- * Version:         1.1.0
+ * Version:         1.1.1
  *
  * @package         loving-heart
  */
