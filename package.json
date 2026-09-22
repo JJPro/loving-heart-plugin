@@ -8,6 +8,7 @@
 		"build": "rm -rf dist && npx mix --production",
 		"env:start": "wp-env start --xdebug",
 		"env:stop": "wp-env stop",
+		"env:destroy": "wp-env destroy",
 		"compile": "composer dump-autoload -o"
 	},
 	"devDependencies": {
