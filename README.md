@@ -61,9 +61,8 @@ This runs `wp-env start --xdebug`, which spins up Docker containers with WordPre
 | Site        | URL                     | Login             |
 | ----------- | ----------------------- | ----------------- |
 | Development | <http://localhost:5555> | `admin` / `password` |
-| Tests       | <http://localhost:5556> | `admin` / `password` |
 
-`WP_DEBUG`, `SCRIPT_DEBUG`, `WP_DEBUG_DISPLAY` and `WP_DEBUG_LOG` are all enabled on both sites.
+`WP_DEBUG`, `SCRIPT_DEBUG`, `WP_DEBUG_DISPLAY` and `WP_DEBUG_LOG` are all enabled.
 
 ### 5. Develop
 
@@ -88,8 +87,7 @@ npx wp-env destroy          # remove containers, volumes and images
 ## Useful wp-env commands
 
 ```sh
-npx wp-env run cli wp plugin list        # run WP-CLI against the dev site
-npx wp-env run tests-cli wp plugin list  # …or the tests site
+npx wp-env run cli wp plugin list        # run WP-CLI against the site
 npx wp-env logs                          # tail PHP / Apache logs
 ```
 
@@ -97,7 +95,7 @@ Xdebug is enabled by `env:start`; point your IDE at port `9003` and map the proj
 
 ## PHP upload limits
 
-The stock `wordpress` Docker image caps uploads at 2 MB. `.wp-env/.htaccess` is mounted into the site root (via `mappings` in `.wp-env.json`) and raises `upload_max_filesize` / `post_max_size` to 128 MB, `memory_limit` to 256 MB and execution/input time to 300 s. Edit that file to change the values — Apache picks up `.htaccess` changes on the next request, no restart needed. The mapping only applies to the development site; copy the `mappings` block under `env.tests` in `.wp-env.json` if the tests site needs it too.
+The stock `wordpress` Docker image caps uploads at 2 MB. `.wp-env/.htaccess` is mounted into the site root (via `mappings` in `.wp-env.json`) and raises `upload_max_filesize` / `post_max_size` to 128 MB, `memory_limit` to 256 MB and execution/input time to 300 s. Edit that file to change the values — Apache picks up `.htaccess` changes on the next request, no restart needed. The mapping applies to the development site.
 
 ## Project layout
 
